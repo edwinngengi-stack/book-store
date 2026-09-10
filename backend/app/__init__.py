@@ -6,6 +6,7 @@ from app.extensions import db, migrate, jwt, bcrypt, cors, swagger
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    cors.init_app(app)
 
     app.config['SWAGGER'] = {
         'title': 'Booked API',
