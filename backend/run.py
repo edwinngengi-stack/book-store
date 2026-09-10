@@ -1,8 +1,19 @@
-@app.route('/api/setup-database-xyz')
-def setup_database_xyz():
-    from app import db  # Adjust this import to match how your app imports the db instance
+
+import os
+from app import create_app, db
+
+# 1. Initialize the Flask application
+app = create_app()
+
+# 2. Automatically create all missing database tables on startup
+with app.app_context():
     try:
         db.create_all()
-        return "Database tables built successfully!", 200
+        print("Database tables initialized successfully!")
     except Exception as e:
-        return f"Error building database: {str(e)}", 500
+        print(f"Database initialization warning: {e}")
+
+# 3. Boot the application server engine
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
