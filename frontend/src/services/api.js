@@ -5,7 +5,7 @@ import axios from "axios";
 // Locally, falls back to /api, which works if vite.config.js proxies
 // /api to your local Flask server — otherwise set VITE_API_URL in a
 // local .env file too, e.g. VITE_API_URL=http://localhost:5000/api
-const baseURL = "https://book-store-b6gw.onrender.com"
+const baseURL = "https://book-store-b6gw.onrender.com/api" || import.meta.env.VITE_API_URL || "/api";
 
 const api = axios.create({
   baseURL,
